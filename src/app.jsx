@@ -1,25 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import GreeterReact from './components/GreeterReact';
+import React            from 'react'
+import ReactDOM         from 'react-dom'
+import {Provider}       from 'react-redux';
+import { Router,
+         Route,
+         hashHistory,
+         IndexRoute }   from 'react-router'
 
-var App = React.createClass({
-    render: ()=>{
-        return(
-            <GreeterReact/>
-        );
-    }
+import Home             from './components/home/home'
+import Main             from './components/main/main'
+import About            from './components/about/about'
+import UsersList        from './components/users/users-list'
+import User             from './components/users/user'
+import UserDetails      from './components/users/user-details';
+import store            from './store/store'
+
+store.subscribe(()=>{
+    console.log("Redux store.");
+    console.log(store.getState());
 });
 
-// var Router = require('react-router').Router
-// var Route = require('react-router').Route
-// var Link = require('react-router').Link
-// var browserHistory = require('react-router').BrowserHistory;
-//
-// <Router history={browserHistory}>
-//     <Route path="/" component={App}>
-//         <Route path="about" component={About}/>
-//         <Route path="*" component={App}/>
-//     </Route>
-// </Router>
-
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(
+    <Provider store={store}>
+        <Router history={hashHistory}>
+            <Route path="/" component={Main}>
+                <Route path="about" component={About}/>
+                <Route path="users" component={UsersList}/>
+                <Route path="user-details" component={UserDetails}/>
+                <IndexRoute component={Home}/>
+            </Route>
+        </Router>
+    </Provider>
+,document.getElementById('app'));
