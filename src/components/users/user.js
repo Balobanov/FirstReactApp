@@ -24,9 +24,13 @@ var User = React.createClass({
     render: function () {
         var {name, age} = this.props.user;
         return (
-            <div onClick={this.onClickHandler}>
-                <label>{name} {age}  </label>
-                <button onClick={this.onDeleteUser}>X</button>
+            <div>
+                <div onClick={this.onClickHandler}>
+                    <label>{name} {age}  </label>
+                </div>
+                <div>
+                    <button onClick={this.onDeleteUser}>X</button>
+                </div>
             </div>
         )
     }

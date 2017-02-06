@@ -1,16 +1,17 @@
+import * as ACTIONS from '../actions/actionHelper';
 //
 // User's actions
 //
 export var addUserAction = (userObj) => {
     return {
-        type: 'ADD_USER',
+        type: ACTIONS.ADD_USER,
         ...userObj
     };
 };
 
 export var removeUserAction = (id) => {
     return {
-        type: 'REMOVE_USER',
+        type: ACTIONS.REMOVE_USER,
         id
     };
 };
@@ -18,16 +19,35 @@ export var removeUserAction = (id) => {
 //
 // User select actions
 //
-export var selectUserAction = (userObj) => {
+export var selectUserAction = (selectedUser) => {
     return {
-        type: 'USER_WAS_SELECTED',
-        selectedUser: {...userObj }
+        type: ACTIONS.USER_WAS_SELECTED,
+        selectedUser
     };
 };
 
 export var lostFocusUserAction = () => {
     return {
-        type: 'USER_LOST_FOCUS',
+        type: ACTIONS.USER_LOST_FOCUS,
         selectedUser: null
+    };
+};
+
+//
+// Payments actions
+//
+export var addPaymentToUserAction = (userId, payment) => {
+    return {
+        type: ACTIONS.ADD_PAYMENT,
+        userId,
+        payment
+    };
+};
+
+export var removePaymentFromUserAction = (userId, paymentId) => {
+    return {
+        type: ACTIONS.REMOVE_PAYMENT,
+        userId,
+        paymentId
     };
 };

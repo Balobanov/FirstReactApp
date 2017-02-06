@@ -1,7 +1,12 @@
+import * as ACTIONS from '../actions/actionHelper';
+
 export var usersReduser = (state = [], action) => {
+    // console.log(state);
+    // console.log(action);
+
     switch (action.type){
 
-        case 'ADD_USER':
+        case ACTIONS.ADD_USER:
             return [
                 ...state,
                 {
@@ -12,12 +17,19 @@ export var usersReduser = (state = [], action) => {
                 }
             ];
 
-        case 'REMOVE_USER':
+        case ACTIONS.REMOVE_USER:
             return [
                 ...state.filter(user => {
                     return user.id !== action.id;
                 })
             ];
+
+        // case 'ADD_PAYMENT':
+        //     return ;
+        //
+        // case 'REMOVE_PAYMENT':
+        //     return ;
+
         default:
             return state;
     }
@@ -26,10 +38,10 @@ export var usersReduser = (state = [], action) => {
 export var selectedUsersReduser = (state = {}, action) => {
     switch (action.type){
 
-        case 'USER_WAS_SELECTED':
+        case ACTIONS.USER_WAS_SELECTED:
             return action.selectedUser;
 
-        case 'USER_LOST_FOCUS':
+        case ACTIONS.USER_LOST_FOCUS:
             return action.selectedUser;
 
         default:
