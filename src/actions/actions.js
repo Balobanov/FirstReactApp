@@ -18,16 +18,16 @@ export var removeUserAction = (id) => {
 //
 // User select actions
 //
-export var selectUserAction = () => {
+export var selectUserAction = (userObj) => {
     return {
-        type: USER_WAS_SELECTED,
-        isSelected: true
+        type: 'USER_WAS_SELECTED',
+        selectedUser: {...userObj }
     };
 };
 
 export var lostFocusUserAction = () => {
     return {
-        type: USER_WAS_SELECTED,
-        isSelected: false
+        type: 'USER_LOST_FOCUS',
+        selectedUser: null
     };
 };

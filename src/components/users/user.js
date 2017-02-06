@@ -3,7 +3,7 @@ import {connect}          from 'react-redux';
 import {hashHistory} from 'react-router';
 
 
-import {removeUserAction} from './../../actions/actions';
+import {removeUserAction, selectUserAction} from './../../actions/actions';
 
 
 var User = React.createClass({
@@ -16,16 +16,17 @@ var User = React.createClass({
     },
 
     onClickHandler: function(){
+        let {dispatch} = this.props;
+        dispatch(selectUserAction(this.props.user));
         hashHistory.push('/user-details');
     },
 
     render: function () {
         var {name, age} = this.props.user;
         return (
-            <div >
+            <div onClick={this.onClickHandler}>
                 <label>{name} {age}  </label>
                 <button onClick={this.onDeleteUser}>X</button>
-                <button onClick={this.onClickHandler}>Details</button>
             </div>
         )
     }

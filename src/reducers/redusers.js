@@ -23,14 +23,14 @@ export var usersReduser = (state = [], action) => {
     }
 };
 
-export var selectedUsersReduser = (state = false, action) => {
+export var selectedUsersReduser = (state = {}, action) => {
     switch (action.type){
 
         case 'USER_WAS_SELECTED':
-            return action.isSelected;
+            return action.selectedUser;
 
         case 'USER_LOST_FOCUS':
-            return action.isSelected;
+            return action.selectedUser;
 
         default:
             return state;

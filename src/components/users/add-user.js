@@ -9,18 +9,29 @@ var UsersAdd = React.createClass({
         e.preventDefault();
         let {dispatch} = this.props;
 
-        dispatch(addUserAction({
-            id: uuid(),
-            name: "Wad",
-            age: 55,
-            payments: []
-        }));
+        let name = this.refs.name.value;
+        let age  = this.refs.age.value;
+
+        if(typeof name === 'string' && typeof parseInt(age) === 'number'){
+            if (name.length > 0 && parseInt(age) > 0){
+
+                this.refs.name.value = '';
+                this.refs.age.value = '';
+
+                dispatch(addUserAction({
+                    id: uuid(),
+                    name: name,
+                    age: age,
+                    payments: []
+                }));
+            }
+        }
     },
 
     render: function () {
         return (
             <div>
-                <p>Add new User</p>
+                <h1>Add new user</h1>
                 <form onSubmit={this.onAddNewUser}>
                     <div>
                         <label>Name: </label><input type="text" ref="name"/>
