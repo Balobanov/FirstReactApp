@@ -15,11 +15,16 @@ var UsersList = React.createClass({
     renderUsers: function () {
         let {users} = this.props;
 
-        return users.map((user)=>{
-            return (
-                <User key={user.id} user={user}/>
-            );
-        });
+        if(users.length > 0){
+            return users.map((user)=>{
+                return (
+                    <User key={user.id} user={user}/>
+                );
+            });
+        }
+        else {
+            return <p>No users</p>
+        }
     },
 
     render: function () {

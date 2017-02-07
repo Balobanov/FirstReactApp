@@ -22,28 +22,7 @@ var UsersAdd = React.createClass({
                     id: uuid(),
                     name: name,
                     age: age,
-                    payments: [
-                        {
-                            id: uuid(),
-                            title: "Internet",
-                            amount: 100,
-                            data: new Date()
-                        },
-
-                        {
-                            id: uuid(),
-                            title: "Food",
-                            amount: 30,
-                            data: new Date()
-                        },
-
-                        {
-                            id: uuid(),
-                            title: "Flat",
-                            amount: 1000,
-                            data: new Date()
-                        }
-                    ]
+                    payments: []
                 }));
             }
         }

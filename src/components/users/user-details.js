@@ -3,10 +3,14 @@ import {connect}          from 'react-redux';
 import {hashHistory} from 'react-router';
 
 import {lostFocusUserAction} from './../../actions/actions';
+import PaymentList from '../payments/payments-list';
 
 var UserDetails = React.createClass({
 
     render: function () {
+
+        let {id, name, age, payments} = this.props.selectedUser;
+        // console.log(this.props.selectedUser);
 
         if(!this.props.selectedUser) {
             return (
@@ -20,8 +24,9 @@ var UserDetails = React.createClass({
             return (
                 <div>
                     <h1>USER DITAILS</h1>
-                    <div><label>{this.props.selectedUser.name}</label></div>
-                    <div><label>{this.props.selectedUser.age}</label></div>
+                    <div><label>Name: {name}</label></div>
+                    <div><label>Age: {age}</label></div>
+                    <PaymentList/>
                     <button onClick={this.onGoBackHandler}>go Back</button>
                 </div>
             )

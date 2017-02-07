@@ -16,6 +16,13 @@ export var removeUserAction = (id) => {
     };
 };
 
+export var addSetOfUsersAction = (users) => {
+    return {
+        type: ACTIONS.ADD_SET_OF_USER,
+        users
+    };
+};
+
 //
 // User select actions
 //
@@ -29,7 +36,7 @@ export var selectUserAction = (selectedUser) => {
 export var lostFocusUserAction = () => {
     return {
         type: ACTIONS.USER_LOST_FOCUS,
-        selectedUser: null
+        selectedUser: false
     };
 };
 

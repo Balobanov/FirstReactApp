@@ -1,4 +1,5 @@
 export const    ADD_USER = 'ADD_USER';
+export const    ADD_SET_OF_USER = 'ADD_SET_OF_USER';
 export const    REMOVE_USER = 'REMOVE_USER';
 export const    ADD_PAYMENT = 'ADD_PAYMENT';
 export const    REMOVE_PAYMENT = 'REMOVE_PAYMENT';

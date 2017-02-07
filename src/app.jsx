@@ -14,10 +14,20 @@ import User             from './components/users/user'
 import UserDetails      from './components/users/user-details';
 import store            from './store/store'
 
+import {addSetOfUsersAction} from './actions/actions';
+
 store.subscribe(()=>{
-    console.log("Redux store.");
-    console.log(store.getState());
+    let state = store.getState();
+    let user = JSON.stringify(state.users);
+    localStorage.setItem("users", user);
 });
+
+try{
+var users = JSON.parse(localStorage.getItem("users"));
+store.dispatch(addSetOfUsersAction(users));
+}catch(e){
+console.log(e);
+}
 
 ReactDOM.render(
     <Provider store={store}>
