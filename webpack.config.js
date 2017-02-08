@@ -52,9 +52,7 @@ module.exports = {
     resolve: {
         root: __dirname,
         modulesDirectories: [
-            'node_modules',
-            './src',
-            './src/'
+            'node_modules'
         ],
         alias: {
             src: 'src'
