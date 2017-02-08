@@ -31,11 +31,11 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-    entry: [
+    entry: {
         // 'script!jquery/dist/jquery.min.js',
         // 'script!foundation-sites/dist/foundation.min.js',
-        './src/app.jsx'
-    ],
+        app: './src/app.jsx'
+        },
     externals: {
         jquery: 'jQuery'
     },
@@ -54,9 +54,9 @@ module.exports = {
         modulesDirectories: [
             'node_modules'
         ],
-        alias: {
-            src: 'src'
-        },
+        // alias: {
+        //     src: 'src'
+        // },
         extensions: ['', '.js', '.jsx']
     },
     module: {
