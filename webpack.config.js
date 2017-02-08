@@ -53,11 +53,12 @@ module.exports = {
         root: __dirname,
         modulesDirectories: [
             'node_modules',
-            './src'
+            './src',
+            './src/'
         ],
-        // alias: {
-        //     applicationStyles: 'app/styles/app.scss'
-        // },
+        alias: {
+            src: 'src'
+        },
         extensions: ['', '.js', '.jsx']
     },
     module: {
