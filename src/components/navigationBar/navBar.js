@@ -21,9 +21,11 @@ var NavBar = React.createClass({
     },
 
     render: function () {
+
         return (
             <div>
                 <h3>Navigation:  </h3>
+                <div ><img src={this.props.avatar} style={{width: '50px', height: '50px'}}/></div>
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">

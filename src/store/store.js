@@ -1,14 +1,15 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import {usersReduser, selectedUsersReduser, authReducer} from './../reducers/redusers';
+import {usersReduser, selectedUsersReduser, authReducer, avatarReducer}  from './../reducers/redusers';
 
 var configure = (initialState = {}) => {
 
     var reducer = redux.combineReducers({
         users: usersReduser,
         selectedUser: selectedUsersReduser,
-        auth: authReducer
+        auth: authReducer,
+        avatar: avatarReducer
     });
 
     var _store = redux.createStore(reducer, initialState, redux.compose(

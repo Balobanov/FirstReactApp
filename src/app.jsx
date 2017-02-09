@@ -18,25 +18,13 @@ import UserDetails      from './components/users/user-details';
 import Login            from './components/login/Login';
 import store            from './store/store';
 
-import {addSetOfUsersAction, login, logout, startAddSetOfUsers} from './actions/actions';
-
-// store.subscribe(()=>{
-//     let state = store.getState();
-//     let user = JSON.stringify(state.users);
-//     localStorage.setItem("users", user);
-// });
-//
-// try{
-// var users = JSON.parse(localStorage.getItem("users"));
-// store.dispatch(addSetOfUsersAction(users));
-// }catch(e){
-// console.log(e);
-// }
-
+import {avatarUrlAction, login, logout, startAddSetOfUsers} from './actions/actions';
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         store.dispatch(login(user.uid, user.accessToken));
+        if(user.photoURL)
+            store.dispatch(avatarUrlAction(user.photoURL));
         store.dispatch(startAddSetOfUsers());
     } else {
         store.dispatch(logout);

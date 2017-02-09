@@ -10,7 +10,6 @@ var UserDetails = React.createClass({
     render: function () {
 
         let {id, name, age, payments} = this.props.selectedUser;
-        // console.log(this.props.selectedUser);
 
         if(!this.props.selectedUser) {
             return (

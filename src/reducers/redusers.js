@@ -1,6 +1,7 @@
 import * as ACTIONS from '../actions/actionHelper';
 
 export var usersReduser = (state = [], action) => {
+
     switch (action.type){
 
         case ACTIONS.ADD_USER:
@@ -82,6 +83,18 @@ export var authReducer = (state = {}, action) => {
 
         case ACTIONS.LOGOUT:
             return {};
+
+        default:
+            return state;
+    }
+};
+
+
+export var avatarReducer = (state = 'https://www.mautic.org/media/images/default_avatar.png', action) => {
+    switch (action.type){
+
+        case ACTIONS.SET_AVATAR:
+            return action.avatarUrl;
 
         default:
             return state;

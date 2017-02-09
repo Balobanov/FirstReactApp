@@ -51,7 +51,6 @@ export var startAddSetOfUsers = () => {
         return usersRef.once('value').then((snapshot) => {
             var users = snapshot.val() || {};
 
-            console.log(users);
             var parsedUsers = [];
 
             Object.keys(users).forEach((usersId) => {
@@ -63,7 +62,6 @@ export var startAddSetOfUsers = () => {
                   });
 
                 }
-                  console.log(payments);
 
                 parsedUsers.push({
                     id: usersId,
@@ -72,7 +70,6 @@ export var startAddSetOfUsers = () => {
                 });
             });
 
-            console.log(users);
             dispatch(addSetOfUsersAction(parsedUsers));
         });
     };
@@ -136,8 +133,10 @@ export var startLoginWithGoogleAction = () =>{
         return firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
             let token = result.credential.accessToken;
             let uid = result.user.uid;
+            let url = result.user.photoURL;
 
             dispatch(login(uid, token));
+            dispatch(avatarUrlAction(url));
             hashHistory.push('users');
         });
     };
@@ -149,8 +148,10 @@ export var startLoginWithGitHubAction = () =>{
         return firebase.auth().signInWithPopup(githubAuthProvider).then(function(result) {
             let token = result.credential.accessToken;
             let uid = result.user.uid;
+            let url = result.user.photoURL;
 
             dispatch(login(uid, token));
+            dispatch(avatarUrlAction(url));
             hashHistory.push('users');
         });
     };
@@ -172,7 +173,15 @@ export var startLogoutAction = () =>{
     return (dispatch, getSate)=>{
         return firebase.auth().signOut().then(function() {
             dispatch(logout());
+            dispatch(avatarUrlAction('https://www.mautic.org/media/images/default_avatar.png'));
             hashHistory.push('/');
         });
     };
 }
+
+export var avatarUrlAction = (avatarUrl) => {
+    return {
+        type: ACTIONS.SET_AVATAR,
+        avatarUrl
+    };
+};
