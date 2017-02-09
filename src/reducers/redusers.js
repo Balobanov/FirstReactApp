@@ -1,9 +1,6 @@
 import * as ACTIONS from '../actions/actionHelper';
 
 export var usersReduser = (state = [], action) => {
-    // console.log(state);
-    // console.log(action);
-
     switch (action.type){
 
         case ACTIONS.ADD_USER:
@@ -52,6 +49,9 @@ export var usersReduser = (state = [], action) => {
                 ...state
             ]
 
+        case ACTIONS.LOGOUT:
+            return [];
+
         default:
             return state;
     }
@@ -65,6 +65,23 @@ export var selectedUsersReduser = (state = false, action) => {
 
         case ACTIONS.USER_LOST_FOCUS:
             return action.selectedUser;
+
+        default:
+            return state;
+    }
+};
+
+export var authReducer = (state = {}, action) => {
+    switch (action.type){
+
+        case ACTIONS.LOGIN:
+            return {
+                uid: action.uid,
+                accessToken: action.accessToken
+            };
+
+        case ACTIONS.LOGOUT:
+            return {};
 
         default:
             return state;

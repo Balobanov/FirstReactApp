@@ -1,6 +1,6 @@
 import React            from 'react';
 import {connect}        from 'react-redux';
-import {addUserAction}  from './../../actions/actions';
+import {startAddUserAction}  from './../../actions/actions';
 import uuid             from 'node-uuid';
 
 var UsersAdd = React.createClass({
@@ -18,11 +18,21 @@ var UsersAdd = React.createClass({
                 this.refs.name.value = '';
                 this.refs.age.value = '';
 
-                dispatch(addUserAction({
-                    id: uuid(),
+                dispatch(startAddUserAction({
                     name: name,
                     age: age,
-                    payments: []
+                    payments: [
+                        {
+                            title: 'test1',
+                            amount: 20,
+                            date: new Date()
+                        },
+                        {
+                            title: 'test2',
+                            amount: 30,
+                            date: new Date()
+                        }
+                        ]
                 }));
             }
         }
