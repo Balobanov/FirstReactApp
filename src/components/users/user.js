@@ -1,7 +1,7 @@
 import React              from 'react';
 import {connect}          from 'react-redux';
-import {browserHistory} from 'react-router';
-
+import {hashHistory} from 'react-router';
+import 'hover.css/css/hover.css';
 
 import {startRemoveUserAction, selectUserAction, startUpdateUserAction} from './../../actions/actions';
 
@@ -28,7 +28,7 @@ var User = React.createClass({
     onClickHandler: function(){
         let {dispatch} = this.props;
         dispatch(selectUserAction(this.props.user));
-        browserHistory.push('/user-details');
+        hashHistory.push('/user-details');
     },
 
     getInitialState(){
@@ -40,7 +40,7 @@ var User = React.createClass({
     render: function () {
         return (
             <tr>
-                <td onClick={this.onClickHandler}>
+                <td className="hvr-curl-top-left" onClick={this.onClickHandler}>
                     <label>{this.state.id}</label>
                 </td>
 

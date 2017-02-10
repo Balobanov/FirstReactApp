@@ -1,6 +1,6 @@
 import * as ACTIONS from '../actions/actionHelper';
 import firebase, {googleAuthProvider, githubAuthProvider, firebaseRef} from '../firebase/firebase';
-import {browserHistory}   from 'react-router';
+import {hashHistory}   from 'react-router';
 
 
 //
@@ -105,6 +105,7 @@ export var startRemoveUserAction = (id) => {
 
       return usersRef.remove().then(()=>{
           dispatch(removeUserAction(id));
+          dispatch(lostFocusUserAction());
       });
   };
 };
@@ -217,7 +218,7 @@ export var startLoginWithGoogleAction = () =>{
 
             dispatch(login(uid, token));
             dispatch(avatarUrlAction(url));
-            browserHistory.push('users');
+            hashHistory.push('users');
         });
     };
 }
@@ -232,7 +233,7 @@ export var startLoginWithGitHubAction = () =>{
 
             dispatch(login(uid, token));
             dispatch(avatarUrlAction(url));
-            browserHistory.push('users');
+            hashHistory.push('users');
         });
     };
 }
@@ -244,7 +245,7 @@ export var startLoginWithEmailAndPassword = (email, password) =>{
             let uid = result.uid;
 
             dispatch(login(uid, token));
-            browserHistory.push('users');
+            hashHistory.push('users');
         });
     };
 }
@@ -254,7 +255,8 @@ export var startLogoutAction = () =>{
         return firebase.auth().signOut().then(function() {
             dispatch(logout());
             dispatch(avatarUrlAction('https://www.mautic.org/media/images/default_avatar.png'));
-            browserHistory.push('/');
+            dispatch(lostFocusUserAction());
+            hashHistory.push('/');
         });
     };
 }
