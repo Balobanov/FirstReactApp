@@ -23,12 +23,11 @@ var NavBar = React.createClass({
     render: function () {
 
         return (
-            <div>
-                <h3>Navigation:  </h3>
-                <div ><img src={this.props.avatar} style={{width: '50px', height: '50px'}}/></div>
+        <div >
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">
+                         <img className="d-inline-block align-left navbar-left" src={this.props.avatar} width="50" height="50"/>
                             <div className="navbar-brand"><Link to="/">Home</Link></div>
                             <div className="navbar-brand"><Link to="/users">Users</Link></div>
                             <div className="navbar-brand"><Link to="/user-details">User Details</Link></div>
@@ -37,8 +36,7 @@ var NavBar = React.createClass({
                         </div>
                     </div>
                 </nav>
-
-            </div>
+        </div>
         );
     }
 });

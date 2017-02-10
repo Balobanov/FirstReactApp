@@ -7,7 +7,7 @@ import { Router,
          browserHistory,
          IndexRoute }   from 'react-router';
 
-import firebase from './firebase/firebase';
+import firebase, {firebaseRef} from './firebase/firebase';
 
 import Home             from './components/home/home';
 import Main             from './components/main/main';
@@ -17,6 +17,9 @@ import User             from './components/users/user';
 import UserDetails      from './components/users/user-details';
 import Login            from './components/login/Login';
 import store            from './store/store';
+
+import './style/bootstrap-3.3.7-dist/css/bootstrap.css';
+import './style/style.css';
 
 import {avatarUrlAction, login, logout, startAddSetOfUsers} from './actions/actions';
 
@@ -33,17 +36,16 @@ firebase.auth().onAuthStateChanged((user) => {
 
 const requireAuth = (nextState, replace, callback) => {
     var user = firebase.auth().currentUser;
-
     if (user) {
         callback();
     } else {
-        hashHistory.push('login');
+        browserHistory.push('login');
     }
 }
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={hashHistory}>
+        <Router history={browserHistory}>
             <Route path="/" component={Main}>
                 <Route path="about" component={About}/>
                 <Route path="users" component={UsersList} onEnter={requireAuth}/>

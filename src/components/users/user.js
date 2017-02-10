@@ -1,9 +1,9 @@
 import React              from 'react';
 import {connect}          from 'react-redux';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 
 
-import {removeUserAction, selectUserAction} from './../../actions/actions';
+import {startRemoveUserAction, selectUserAction, startUpdateUserAction} from './../../actions/actions';
 
 
 var User = React.createClass({
@@ -12,26 +12,62 @@ var User = React.createClass({
       let {id} = this.props.user;
       let {dispatch} = this.props;
 
-      dispatch(removeUserAction(id));
+      dispatch(startRemoveUserAction(id));
+    },
+
+    onUpdateUser: function() {
+        let {dispatch} = this.props;
+
+        dispatch(startUpdateUserAction({
+            id: this.state.id,
+            name: this.state.name,
+            age: this.state.age
+        }));
     },
 
     onClickHandler: function(){
         let {dispatch} = this.props;
         dispatch(selectUserAction(this.props.user));
-        hashHistory.push('/user-details');
+        browserHistory.push('/user-details');
+    },
+
+    getInitialState(){
+      return {
+          ...this.props.user
+      };
     },
 
     render: function () {
-        var {name, age} = this.props.user;
         return (
-            <div>
-                <div onClick={this.onClickHandler}>
-                    <label>{name} {age}  </label>
-                </div>
-                <div>
+            <tr>
+                <td onClick={this.onClickHandler}>
+                    <label>{this.state.id}</label>
+                </td>
+
+                <td >
+                    <input type="text" value={this.state.name} ref="name" onChange={()=>{
+                        let name = this.refs.name.value;
+                        this.setState({
+                            name
+                        });
+                    }}/>
+                </td>
+
+                <td>
+                    <input type="text" value={this.state.age} ref="age" onChange={()=>{
+                        let age = this.refs.age.value;
+                        this.setState({
+                            age
+                        });
+                    }}/>
+                </td>
+                <td>
                     <button onClick={this.onDeleteUser}>X</button>
-                </div>
-            </div>
+                </td>
+                <td>
+                    <button onClick={this.onUpdateUser}>Save Changes</button>
+                </td>
+            </tr>
         )
     }
 });

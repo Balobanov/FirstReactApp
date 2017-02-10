@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect}  from 'react-redux';
 
-import '../../style/bootstrap-3.3.7-dist/css/bootstrap.css';
-
 import {startLoginWithGoogleAction, startLoginWithGitHubAction, startLoginWithEmailAndPassword} from './../../actions/actions';
 
 var Login = React.createClass({

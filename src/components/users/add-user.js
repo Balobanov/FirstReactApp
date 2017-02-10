@@ -21,18 +21,7 @@ var UsersAdd = React.createClass({
                 dispatch(startAddUserAction({
                     name: name,
                     age: age,
-                    payments: [
-                        {
-                            title: 'test1',
-                            amount: 20,
-                            date: new Date()
-                        },
-                        {
-                            title: 'test2',
-                            amount: 30,
-                            date: new Date()
-                        }
-                        ]
+                    payments: []
                 }));
             }
         }
@@ -40,17 +29,25 @@ var UsersAdd = React.createClass({
 
     render: function () {
         return (
-            <div>
+            <div className="container">
+                <div id="loginbox" style={{marginTop: '50px'}} className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div className="panel panel-info" >
                 <h1>Add new user</h1>
+
                 <form onSubmit={this.onAddNewUser}>
-                    <div>
-                        <label>Name: </label><input type="text" ref="name"/>
+                    <div className="form-group">
+                        <label>Name</label>
+                        <input type="text" className="form-control" ref="name"/>
                     </div>
-                    <div>
-                        <label>Age: </label><input type="text" ref="age"/>
+                    <div className="form-group">
+                        <label>Age:</label>
+                        <input type="text" className="form-control"  ref="age"/>
                     </div>
-                    <button>Save</button>
+
+                    <button className="btn btn-default">Submit</button>
                 </form>
+                    </div>
+            </div>
             </div>
         )
     }

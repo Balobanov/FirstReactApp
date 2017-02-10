@@ -1,6 +1,6 @@
 import * as ACTIONS from '../actions/actionHelper';
 import firebase, {googleAuthProvider, githubAuthProvider, firebaseRef} from '../firebase/firebase';
-import {hashHistory}   from 'react-router';
+import {browserHistory}   from 'react-router';
 
 
 //
@@ -9,6 +9,13 @@ import {hashHistory}   from 'react-router';
 export var addUserAction = (userObj) => {
     return {
         type: ACTIONS.ADD_USER,
+        ...userObj
+    };
+};
+
+export var updateUserAction = (userObj) => {
+    return {
+        type: ACTIONS.UPDATE_USER,
         ...userObj
     };
 };
@@ -24,6 +31,21 @@ export var addSetOfUsersAction = (users) => {
     return {
         type: ACTIONS.ADD_SET_OF_USER,
         users
+    };
+};
+
+export var startUpdateUserAction = (userObj) =>{
+    return (dispatch, getState)=>{
+        var uid = getState().auth.uid;
+        var update = {
+            name: userObj.name,
+            age: userObj.age
+        };
+
+        var usersRef = firebaseRef.child(`users/${uid}/users/${userObj.id}`);
+        return usersRef.update(update).then(()=>{
+            dispatch(updateUserAction(userObj));
+        });
     };
 };
 
@@ -75,6 +97,18 @@ export var startAddSetOfUsers = () => {
     };
 };
 
+export var startRemoveUserAction = (id) => {
+  return (dispatch, getState) => {
+      var uid = getState().auth.uid;
+
+      var usersRef = firebaseRef.child(`users/${uid}/users/${id}`);
+
+      return usersRef.remove().then(()=>{
+          dispatch(removeUserAction(id));
+      });
+  };
+};
+
 //
 // User select actions
 //
@@ -111,6 +145,52 @@ export var removePaymentFromUserAction = (userId, paymentId) => {
     };
 };
 
+export var updatePaymentOfUserAction = (userId, payment)=>{
+    return {
+        type: ACTIONS.UPDATE_PAYMENT,
+        userId,
+        payment
+    };
+};
+
+export var startAddPaymentToUserAction = (userId, payment) =>{
+    return (dispatch, getState)=>{
+        var uid = getState().auth.uid;
+
+        var usersRef = firebaseRef.child(`users/${uid}/users/${userId}/payments`).push(payment);
+        return usersRef.then(()=>{
+
+            dispatch(addPaymentToUserAction(userId, {id: usersRef.key, ...payment}));
+        });
+    };
+};
+
+export var startRemovePaymentFromUserAction = (userId, paymentId) =>{
+    return (dispatch, getState)=>{
+        var uid = getState().auth.uid;
+
+        var usersRef = firebaseRef.child(`users/${uid}/users/${userId}/payments/${paymentId}`);
+        return usersRef.remove().then(()=>{
+            dispatch(removePaymentFromUserAction(userId, paymentId));
+        });
+    };
+};
+
+export var startUpdatePaymentOfUserAction = (userId, payment) =>{
+    return (dispatch, getState)=>{
+        var uid = getState().auth.uid;
+        var update = {
+            title: payment.title,
+            amount: payment.amount
+        };
+
+        var usersRef = firebaseRef.child(`users/${uid}/users/${userId}/payments/${payment.id}`);
+        return usersRef.update(update).then(()=>{
+            dispatch(updatePaymentOfUserAction(userId, payment));
+        });
+    };
+};
+
 //
 // Auth actions
 //
@@ -137,7 +217,7 @@ export var startLoginWithGoogleAction = () =>{
 
             dispatch(login(uid, token));
             dispatch(avatarUrlAction(url));
-            hashHistory.push('users');
+            browserHistory.push('users');
         });
     };
 }
@@ -152,7 +232,7 @@ export var startLoginWithGitHubAction = () =>{
 
             dispatch(login(uid, token));
             dispatch(avatarUrlAction(url));
-            hashHistory.push('users');
+            browserHistory.push('users');
         });
     };
 }
@@ -164,7 +244,7 @@ export var startLoginWithEmailAndPassword = (email, password) =>{
             let uid = result.uid;
 
             dispatch(login(uid, token));
-            hashHistory.push('users');
+            browserHistory.push('users');
         });
     };
 }
@@ -174,7 +254,7 @@ export var startLogoutAction = () =>{
         return firebase.auth().signOut().then(function() {
             dispatch(logout());
             dispatch(avatarUrlAction('https://www.mautic.org/media/images/default_avatar.png'));
-            hashHistory.push('/');
+            browserHistory.push('/');
         });
     };
 }

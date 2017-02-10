@@ -2,7 +2,7 @@ import React      from 'react';
 import {connect}  from 'react-redux';
 import uuid       from 'node-uuid';
 
-import {addPaymentToUserAction} from '../../actions/actions';
+import {startAddPaymentToUserAction} from '../../actions/actions';
 
 var AddPayment = React.createClass({
 
@@ -21,12 +21,11 @@ var AddPayment = React.createClass({
                 this.refs.title.value = '';
                 this.refs.amount.value = '';
 
-                dispatch(addPaymentToUserAction(id,
+                dispatch(startAddPaymentToUserAction(id,
                     {
-                        id: uuid(),
                         title: title,
                         amount: amount,
-                        date: new Date()
+                        // date: new Date()
                     }
                 ));
             }
@@ -37,15 +36,26 @@ var AddPayment = React.createClass({
 
     render: function () {
         return (
-           <div>
-               <form onSubmit={this.onAddPaymentToUser}>
-                   <div>
-                       <label>Title: </label> <input type="text" ref="title"/>
-                       <label>Amount: </label> <input type="text" ref="amount"/>
-                       <button>Add payment</button>
-                   </div>
-               </form>
-           </div>
+            <div className="container">
+                <div id="loginbox" style={{marginTop: '50px'}} className="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div className="panel panel-info" >
+                        <h1>Add new payment</h1>
+
+                        <form onSubmit={this.onAddPaymentToUser}>
+                            <div className="form-group">
+                                <label>Title</label>
+                                <input type="text" className="form-control" ref="title"/>
+                            </div>
+                            <div className="form-group">
+                                <label>Amount:</label>
+                                <input type="text" className="form-control"  ref="amount"/>
+                            </div>
+
+                            <button className="btn btn-default">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         )
     },
 

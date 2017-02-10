@@ -1,6 +1,6 @@
 import React              from 'react';
 import {connect}          from 'react-redux';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 
 import {lostFocusUserAction} from './../../actions/actions';
 import PaymentList from '../payments/payments-list';
@@ -15,7 +15,7 @@ var UserDetails = React.createClass({
             return (
                 <div>
                     <h1>You have not chosen user yet.</h1>
-                    <button onClick={()=>{hashHistory.goBack();}}>go Back</button>
+                    <button onClick={()=>{browserHistory.goBack();}}>Previous page</button>
                 </div>
             )
         }
@@ -25,8 +25,8 @@ var UserDetails = React.createClass({
                     <h1>USER DITAILS</h1>
                     <div><label>Name: {name}</label></div>
                     <div><label>Age: {age}</label></div>
+                    <button onClick={this.onGoBackHandler}>Previous page</button>
                     <PaymentList/>
-                    <button onClick={this.onGoBackHandler}>go Back</button>
                 </div>
             )
         }
@@ -35,7 +35,7 @@ var UserDetails = React.createClass({
     onGoBackHandler: function () {
         let {dispatch} = this.props;
         dispatch(lostFocusUserAction());
-        hashHistory.goBack();
+        browserHistory.goBack();
     },
 
     mapStateToProps: function (state) {

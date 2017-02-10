@@ -1,7 +1,6 @@
 import React      from 'react';
 import {connect}  from 'react-redux';
 
-import Data       from '../../mockData/mock-data';
 import User       from './user'
 import UserAdd    from './add-user';
 
@@ -23,15 +22,27 @@ var UsersList = React.createClass({
             });
         }
         else {
-            return <p>No users</p>
+            return <tr><td>No users</td></tr>
         }
     },
 
     render: function () {
         return (
             <div>
-                <h2>Render list of users</h2>
-                {this.renderUsers()}
+                <table className="table">
+                    <thead className="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Delete</th>
+                        <th>Save Changes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.renderUsers()}
+                    </tbody>
+                </table>
                 <div>
                     <UserAdd/>
                 </div>

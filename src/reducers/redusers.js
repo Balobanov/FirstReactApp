@@ -15,6 +15,17 @@ export var usersReduser = (state = [], action) => {
                 }
             ];
 
+        case ACTIONS.UPDATE_USER:
+            for(let user of state){
+                if(user.id === action.id){
+                    user.name = action.name;
+                    user.age = action.age;
+                }
+            };
+            return [
+                ...state
+            ];
+
         case ACTIONS.ADD_SET_OF_USER:
             return [
                 ...state,
@@ -33,10 +44,25 @@ export var usersReduser = (state = [], action) => {
                 if(user.id === action.userId){
                     user.payments.push(action.payment);
                 }
-            })
+            });
             return [
                 ...state
-            ]
+            ];
+
+        case ACTIONS.UPDATE_PAYMENT:
+            state.forEach((user)=>{
+                if(user.id === action.userId){
+                    for(let pay in user.payments){
+                        if(user.payments[pay].id === action.payment.id){
+                            user.payments[pay].title = action.payment.title;
+                            user.payments[pay].amount = action.payment.amount;
+                        }
+                    }
+                }
+            });
+            return [
+                ...state
+            ];
 
         case ACTIONS.REMOVE_PAYMENT:
             state.forEach((user)=>{
@@ -45,10 +71,10 @@ export var usersReduser = (state = [], action) => {
                         return payment.id !== action.paymentId;
                     });
                 }
-            })
+            });
             return [
                 ...state
-            ]
+            ];
 
         case ACTIONS.LOGOUT:
             return [];

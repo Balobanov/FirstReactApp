@@ -13,21 +13,37 @@ var PaymentList = React.createClass({
         if(payments.length > 0){
             return payments.map((payment)=>{
                 return (
-                    <li key={payment.id}><Payment payment={payment} userId={id}></Payment></li>
+                   <Payment key={payment.id} payment={payment} userId={id}></Payment>
                 );
             });
         }
         else {
-            return (<div>no payments</div>);
+            return (<tr><td>No payments</td></tr>);
         }
     },
 
     render: function () {
         return (
             <div>
-                <ul>
-                    {this.renderPayments()}
-                </ul>
+                {/*<ul>*/}
+                    {/*{this.renderPayments()}*/}
+                {/*</ul>*/}
+
+                <table className="table">
+                    <thead className="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Delete</th>
+                        <th>Save Changes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderPayments()}
+                    </tbody>
+                </table>
+
                 <AddPayment/>
             </div>
         )
